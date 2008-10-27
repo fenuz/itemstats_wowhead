@@ -47,6 +47,8 @@ This mod only creates english tooltips.
 ##################################################
  Version History
 ##################################################
+0.3.3 (05/06/2007)
+- right aligning fixed (Thanks to Nadas)
 0.3.2 (05/06/2007)
 - autodownloading files now uses cURL, fopen or fsockopen.
 - some css fixes for conflicting theme css files

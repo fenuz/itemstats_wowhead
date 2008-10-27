@@ -2,7 +2,7 @@
  *
  * WOWHEAD TOOLTIPS
  *
- * part of the itemstats wowhead support mod version 0.3.2
+ * part of the itemstats wowhead support mod version 0.3.3
  *
  */
 
@@ -119,12 +119,12 @@ table.wowhead_tooltip td.wh_left div.wh_right {
 .wowhead_tooltip a { text-decoration: none }
 .wowhead_tooltip a:hover { text-decoration: underline }
 
-.wowhead_tooltip table { 
-	border-spacing: 0; 
-	border-collapse: collapse; 
-	margin-right: 0;
-	width: 100%;
-	width:expression("auto");
+.wowhead_tooltip table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-right: 0;
+    width: 100%;
+    width:expression(this.width < 290 ? "290px" : true);
 }
 
 .wowhead_tooltip td, .wowhead_tooltip tr, .wowhead_tooltip table, .wowhead_tooltip th { border: 0; }
