@@ -1,4 +1,4 @@
-<table cellpadding='0' border='0' class='borderless'>
+<table class='wh_outer'>
 	<tr>
 		<td valign='top'>
 			<div class='iconmedium' style='background-image: url({ITEM_ICON_LINK});'><div class='tile'></div></div>
@@ -6,8 +6,8 @@
 		<td width='300'>
 			<table class='wowhead_tooltip'>
 			<tr><td class='top-left'></td><td class='top-right'></td></tr>
-			<tr><td colspan='2' class='left'>
-				<div class='right'><div class='wowhead_tooltip'>The object does not exist, or the website is busy.  Click to search again.<br/>
+			<tr><td colspan='2' class='wh_left'>
+				<div class='wh_right'><div class='wowhead_tooltip'>The object does not exist, or the website is busy.  Click to search again.<br/>
 
 {ITEMSTATS_LINK}
 </div></div>

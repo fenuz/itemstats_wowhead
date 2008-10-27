@@ -47,6 +47,8 @@ This mod only creates english tooltips.
 ##################################################
  Version History
 ##################################################
+0.3.1 (05/06/2007)
+ - some css fixes for conflicting theme css files
 0.3.0 (05/06/2007)
 - automatic icon downloading
 - support for requests by item id
