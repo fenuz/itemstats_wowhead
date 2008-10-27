@@ -8,7 +8,7 @@
  * email: fenuzz@gmail.com
  * description: create itemstats tooltips using wowhead
  *
- * version: 0.3.0
+ * version: 0.3.2
  *
  */
 
