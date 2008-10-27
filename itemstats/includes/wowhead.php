@@ -27,11 +27,14 @@ class ParseWowhead
 		// Ignore blank names.
 		$name = trim($name);
 		if (empty($name)) { return null; }
-
+		
 		$item = array('name' => $name);
 
+		// remove extra spaces (vB is known to add them)
+		$fixed_name = implode(' ', preg_split ("/[\s\+]+/", urldecode(urldecode($name))));
+	
 		// encode the name so it can be used to build the url
-		$encoded_name = urlencode(utf8_encode($name));
+		$encoded_name = urlencode(utf8_encode($fixed_name));
 		$encoded_name = str_replace('+' , '%20' , $encoded_name);
 
 		// Perform the search, and retrieve the result
@@ -69,10 +72,9 @@ class ParseWowhead
 					}
 				}
 				// does the found name match the item name we are looking for?
-				if (strcasecmp($found_name, $name) == 0) {
+				if (strcasecmp($found_name, $fixed_name) == 0) {
 					// exact match found
 					$item_id = $found_item['attr']['ID'];
-					$item['name'] = $found_name;
 					// we found our item so we can stop looping the results
 					break;
 				}
@@ -80,7 +82,7 @@ class ParseWowhead
 			
 			if ($item_id != -1) {
 				// we found the item in the results, retrieve the item data using its item id
-				return $this->getItemId($item_id);
+				return $this->getItemId($item_id, $name);
 			}
 		}
 		
@@ -89,7 +91,7 @@ class ParseWowhead
 	}
 	
 	// Attempts to retrieve data for the specified item from Wowhead by its wowhead itemid
-	function getItemId($item_id)
+	function getItemId($item_id, $name = '')
 	{
 		$item = array('id' => $item_id);
 
@@ -114,7 +116,13 @@ class ParseWowhead
 		}
 
 		// set item data
-		$item['name'] = $properties['NAME']['data'];
+		if ($name != '') {
+			// The name used to query this item, using this name as the tooltip id will enable to store items with too many spaces in the name. This should fix issues with long itemnames in vB.
+			$item['name'] = $name;
+		} else {
+			// query by item id only, use the proper name.
+			$item['name'] = $properties['NAME']['data'];
+		}
 		$item['lang'] = 'en';
 		$item['link'] = $properties['LINK']['data']; // wowhead url to the item
 		$item['icon'] = $properties['ICON']['data']; // icon filename without an extension
@@ -164,7 +172,7 @@ class ParseWowhead
 		// remove the width attributes from the tooltips, they mess the tooltip up in IE
 		$item['html'] = str_replace(' width="100%"', '', $item['html']);
 		// tooltip title/item name links to its wowhead page
-		$item['html'] = str_replace($item['name'], '<a href=\'' . $item['link'] . '\' target=\'_new\'>' . $item['name'] . '</a>', $item['html']);
+		$item['html'] = str_replace($item['name'], '<a href=\'' . $item['link'] . '\' target=\'_new\'>' . $properties['NAME']['data'] . '</a>', $item['html']);
 		// add escape slashes
 		$item['html'] = str_replace('"', '\'', $item['html']);
 		// place the tooltip content html into the tooltip template
