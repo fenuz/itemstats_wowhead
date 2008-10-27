@@ -8,7 +8,7 @@
  * email: fenuzz@gmail.com
  * description: create itemstats tooltips using wowhead
  *
- * version: 0.3.2
+ * version: 0.3.7
  *
  */
 
@@ -37,76 +37,48 @@ class ParseWowhead
 		$encoded_name = urlencode(utf8_encode($fixed_name));
 		$encoded_name = str_replace('+' , '%20' , $encoded_name);
 
-		// Perform the search, and retrieve the result
-		unset($xml_parser); // unset $xml_parser to prevent warnings on PHP4x
-		$xml_parser = new XmlToArray();
-		$xml_search_data = itemstats_read_url('http://www.wowhead.com/?search=' . $encoded_name . '&xml');
-		$result = $xml_parser->parse($xml_search_data);
-
-		// find the ITEMS section in the xml file, if its not there we did not find _anything_
-		$items_idx = -1;
-		$i = 0;
-		foreach($result[0]['child'] as $category) {
-			if ($category['name'] == 'ITEMS') {
-				$items_idx = $i;
-				break;
-			}
-			$i++;
-		}
-
-		// our search found one or more items
-		if ($items_idx != -1) {
-			$found_items = $result[0]['child'][$items_idx]['child'];
-			$item_id = -1;
-			
-			// loop the found items
-			foreach($found_items as $found_item) {
-				$found_name = '';
-				// loop the item properties
-				foreach($found_item['child'] as $property) {
-					// check for the name property
-					if ($property['name'] == 'NAME') {
-						$found_name = $property['data'];
-						// we only want the name property, break loop
-						break;
-					}
-				}
-				// does the found name match the item name we are looking for?
-				if (strcasecmp($found_name, $fixed_name) == 0) {
-					// exact match found
-					$item_id = $found_item['attr']['ID'];
-					// we found our item so we can stop looping the results
-					break;
-				}
-			}
-			
-			if ($item_id != -1) {
-				// we found the item in the results, retrieve the item data using its item id
-				return $this->getItemId($item_id, $name);
-			}
-		}
-		
-		unset($item['link']);
-		return $item;
+		$item_url = 'http://www.wowhead.com/?item=' . $encoded_name . '&xml';
+		return $this->buildTooltip($this->getItemData($item_url));
 	}
 	
 	// Attempts to retrieve data for the specified item from Wowhead by its wowhead itemid
-	function getItemId($item_id, $name = '')
+	function getItemId($item_id)
 	{
-		$item = array('id' => $item_id);
+		$item_url = 'http://www.wowhead.com/?item=' . $item_id . '&xml';
+		return $this->buildTooltip($this->getItemData($item_url));
+	}
 
+	/**
+	 * Parses the XML representation of the item data
+	 *
+	 * $item_url = the URL to the item data (XML).
+	 */
+	function getItemData($item_url)
+	{
 		// retrieve the item data
 		unset($xml_parser); // unset $xml_parser to prevent warnings on PHP4x
 		$xml_parser = new XmlToArray();
-		$xml_item_data = itemstats_read_url('http://www.wowhead.com/?item=' . $item_id . '&xml');
+		$xml_item_data = itemstats_read_url($item_url);
 		$item_data = $xml_parser->parse($xml_item_data);
 
 		if ($item_data[0]['child'][0]['name'] == 'ERROR') {
-			// error, probably an invalid item id
+			// error, probably an invalid item id or unknown item name
 			unset($item['link']);
 			return $item;
 		}
 		// apparantly weve got valid item data
+
+		return $item_data;
+	}
+	
+	/**
+	 * Builds the tooltip using the parsed XML data.
+	 *
+	 * $item_data = parsed XML item data.
+	 */
+	function buildTooltip($item_data) 
+	{
+		$item = array();
 		
 		// create an array of item properties
 		$properties = array();
@@ -116,13 +88,8 @@ class ParseWowhead
 		}
 
 		// set item data
-		if ($name != '') {
-			// The name used to query this item, using this name as the tooltip id will enable to store items with too many spaces in the name. This should fix issues with long itemnames in vB.
-			$item['name'] = $name;
-		} else {
-			// query by item id only, use the proper name.
-			$item['name'] = $properties['NAME']['data'];
-		}
+		$item['id'] = $item_data[0]['child'][0]['attr']['ID'];
+		$item['name'] = $properties['NAME']['data'];
 		$item['lang'] = 'en';
 		$item['link'] = $properties['LINK']['data']; // wowhead url to the item
 		$item['icon'] = strtolower($properties['ICON']['data']); // icon filename without an extension
@@ -177,14 +144,14 @@ class ParseWowhead
 		$item['html'] = str_replace('"', '\'', $item['html']);
 		// place the tooltip content html into the tooltip template
 		$template_html = trim(file_get_contents(dirname(__FILE__) . '/../templates/' . WOWHEAD_TEMPLATE));
-		$item['html'] = str_replace('{ITEM_HTML}', $item['html'], $template_html);
-		
+		$item['html'] = str_replace('{ITEM_HTML}', $item['html'], $template_html);		
 
 		return $item;	
 	}
 
 	// downloads an icon
-	function downloadIcon($iconname) {
+	function downloadIcon($iconname) 
+	{
 		if (DOWNLOAD_ICONS) {
 			if (file_exists(LOCAL_ICON_STORE_PATH . $iconname . ICON_EXTENSION)) {
 				// file already exists, dont download

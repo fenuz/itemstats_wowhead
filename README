@@ -1,5 +1,5 @@
 ##################################################
- WOWHEAD SUPPORT FOR ITEMSTATS - 0.3.6
+ WOWHEAD SUPPORT FOR ITEMSTATS - 0.3.7
 ##################################################
 
 Ive been looking for wowhead support for itemstats ever since allakhazam support stopped working for our guild site. This mod will allow your itemstats to create tooltips using wowhead that look like wowhead tooltips. Currently the mod has the following features:
@@ -47,6 +47,8 @@ This mod only creates english tooltips.
 ##################################################
  Version History
 ##################################################
+0.3.7 (02/09/2007)
+- updated compatibility with the wowhead search engine.
 0.3.6 (23/08/2007)
 - fixed a bug in the wowhead.css, causing tooltips aligning to the right.
 - fixed the wowhead icon bug with the suggestion of mikeycanuck.
@@ -79,9 +81,6 @@ This mod only creates english tooltips.
 ##################################################
  Contact
 ##################################################
-
-Author: Frank Matheron
-E-Mail: fenuzz@gmail.com
 
 Author: Frank Matheron
 E-Mail: fenuzz@gmail.com
