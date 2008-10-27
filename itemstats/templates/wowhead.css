@@ -26,8 +26,8 @@ table.wh_outer {
 	float: none;
 
 	height: 0;
-	min-width: 350px;
-    	width:expression(this.width < 350 ? "350px" : true);	
+	max-width: 350px;
+    	width:expression(this.width > 350 ? "350px" : true);	
 }
 
 table.wowhead_tooltip {

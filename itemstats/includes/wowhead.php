@@ -125,7 +125,7 @@ class ParseWowhead
 		}
 		$item['lang'] = 'en';
 		$item['link'] = $properties['LINK']['data']; // wowhead url to the item
-		$item['icon'] = $properties['ICON']['data']; // icon filename without an extension
+		$item['icon'] = strtolower($properties['ICON']['data']); // icon filename without an extension
 
 		// if download icons is enabled, download the icon
 		if (DOWNLOAD_ICONS) {
