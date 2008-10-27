@@ -4,11 +4,22 @@
 
 Follow these steps to setup wowhead support for your itemstats installation:
 
-1. Backup your itemstats files.
-2. Backup your item_cache table.
-3. Copy the files in the itemstats_wowhead/itemstats/ folder to your itemstats root folder.
-4. Your config_itemstats.php file has been changed, check if its settings are still correct. Note that wowhead support mod can only create english tooltips.
-5. Change your ICON_STORE_LOCATION and ICON_EXTENSION definitions in your itemstats/config.php. The wowhead ICON_STORE_LOCATION url is 'http://www.wowhead.com/images/icons/medium/' and the ICON_EXTENSION is '.jpg'.
+1. 	Backup your itemstats files.
+2. 	Backup your item_cache table.
+3. 	Copy the files in the itemstats_wowhead/itemstats/ folder to your itemstats root folder.
+4. 	Your config_itemstats.php file has been changed, check if its settings are still correct. 
+	Note that wowhead support mod can only create english tooltips.
+5. 	Change your ICON_STORE_LOCATION and ICON_EXTENSION definitions in your itemstats/config.php. 
+	The wowhead ICON_STORE_LOCATION url is 'http://www.wowhead.com/images/icons/medium/'
+	and the ICON_EXTENSION is '.jpg'.
+6. 	If you want old non transparent tooltips in IE6 you need to 
+	add the following lines to all your template header files, 
+	below the inclusion of the wowhead.css file. If you do not add these lines the
+	tooltip background will be a slightly less dark but non transparent blue in IE6.
+   	Lines to add:
+	<!--[if IE 6]>
+	<link rel="stylesheet" href="http://www.yoursite.com/pathtoitemstats/templates/wowhead_ie6.css" type="text/css">
+	<![endif]-->
 
 That's it! All your new tooltips will be created using wowhead!
 
@@ -18,9 +29,15 @@ That's it! All your new tooltips will be created using wowhead!
 
 This mod can download the wowhead icons to your own host. To setup the wowhead support mod to automaticly download image icons to your own host follow these steps:
 
-1. After installing wowhead support open itemstats/config_wowhead.php, setting the DOWNLOAD_ICONS definition to true will enable automatic downloading of icon images.
-2. Set the local path to store your icons with the LOCAL_ICON_STORE_PATH definition. The default path is itemstats/wowhead_icons/, and requires a ICON_STORE_LOCATION that resembles 'http://www.yoursite.com/your/path/to/itemstats/wowhead_icons/'. Remember when change this setting that LOCAL_ICON_STORE_PATH is not the url to your icon directory, it is the local path to your icon directory (ie I use '/var/www/html/wowhead_icons/').
-3. Adjust you ICON_STORE_LOCATION in your itemstats/config.php.
+1. 	After installing wowhead support open itemstats/config_wowhead.php, 
+	setting the DOWNLOAD_ICONS definition to true will 
+	enable automatic downloading of icon images.
+2. 	Set the local path to store your icons with the LOCAL_ICON_STORE_PATH definition. 
+	The default path is itemstats/wowhead_icons/, and requires an 
+	ICON_STORE_LOCATION that resembles 'http://www.yoursite.com/your/path/to/itemstats/wowhead_icons/'. 
+	Remember when change this setting that LOCAL_ICON_STORE_PATH is not the url to your icon directory, 
+	it is the local path to your icon directory (ie I use '/var/www/html/wowhead_icons/').
+3. 	Adjust you ICON_STORE_LOCATION in your itemstats/config.php.
 
 This should enable automatic downloading of icons. Everytime itemstats creates a wowhead item tooltip for which it does not have the icon stored locally yet it will download the icon from wowhead.com to your own site and use that from then on.
 

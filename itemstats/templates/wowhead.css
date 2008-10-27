@@ -11,6 +11,10 @@
 .iconmedium .tile  { width: 44px; height: 44px; }
 .iconmedium .tile  { background-image: url(./wowhead/icon_border_medium.gif) }
 
+table.wh_outer tbody {
+	border: 0;
+}
+
 table.wh_outer {
 	border: 0;
 	border-spacing: 0; 
@@ -53,31 +57,31 @@ table.wowhead_tooltip td, table.wowhead_tooltip tr, table.wowhead_tooltip th {
 }
 
 table.wowhead_tooltip td.top-left {
-	background-image: url(./wowhead/tooltip.gif); 
+	background-image: url(./wowhead/tooltip.png); 
 	background-position: top left; 
 	height: 4px;
 }
 
 table.wowhead_tooltip td.top-right {
-	background-image: url(./wowhead/tooltip.gif); 
+	background-image: url(./wowhead/tooltip.png); 
 	background-position: top right; 
 	height: 4px;
 }
 
 table.wowhead_tooltip td.bottom-left {
-	background-image: url(./wowhead/tooltip.gif); 
+	background-image: url(./wowhead/tooltip.png); 
 	background-position: bottom left; 
 	height: 4px;
 }
 
 table.wowhead_tooltip td.bottom-right {
-	background-image: url(./wowhead/tooltip.gif); 
+	background-image: url(./wowhead/tooltip.png); 
 	background-position: bottom right; 
 	height: 4px;
 }
 
 table.wowhead_tooltip td.wh_left {
-	background-image: url(./wowhead/tooltip.gif); 
+	background-image: url(./wowhead/tooltip.png); 
 	background-position: center left;
 }
 
@@ -120,6 +124,7 @@ table.wowhead_tooltip td.wh_left div.wh_right {
 .wowhead_tooltip a:hover { text-decoration: underline }
 
 .wowhead_tooltip table {
+    border: 0;
     border-spacing: 0;
     border-collapse: collapse;
     margin-right: 0;
@@ -127,7 +132,11 @@ table.wowhead_tooltip td.wh_left div.wh_right {
     width:expression(this.width < 290 ? "290px" : true);
 }
 
-.wowhead_tooltip td, .wowhead_tooltip tr, .wowhead_tooltip table, .wowhead_tooltip th { border: 0; }
+.wowhead_tooltip tbody {
+	border: 0;
+}
+
+.wowhead_tooltip table td, .wowhead_tooltip table tr, .wowhead_tooltip table, .wowhead_tooltip table th { border: 0; padding: 0; margin: 0; }
 
 .wowhead_tooltip td, .wowhead_tooltip th { background: none; font-family: Verdana, sans-serif; font-size: 11px; line-height: 17px; color: white; padding: 5px }
 .wowhead_tooltip th { padding: 3px; padding-right: 8px; height: 8px }
