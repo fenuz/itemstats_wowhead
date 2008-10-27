@@ -47,8 +47,11 @@ This mod only creates english tooltips.
 ##################################################
  Version History
 ##################################################
+0.3.2 (05/06/2007)
+- autodownloading files now uses cURL, fopen or fsockopen.
+- some css fixes for conflicting theme css files
 0.3.1 (05/06/2007)
- - some css fixes for conflicting theme css files
+- some css fixes for conflicting theme css files
 0.3.0 (05/06/2007)
 - automatic icon downloading
 - support for requests by item id
