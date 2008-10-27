@@ -9,7 +9,7 @@
  * description: wowhead support mod configuration settings
  *
  *
- * part of the itemstats wowhead support mod version 0.3.0
+ * part of the itemstats wowhead support mod version 0.3.10
  *
  */
 
@@ -28,6 +28,6 @@ define('DOWNLOAD_ICONS', false);
 define('LOCAL_ICON_STORE_PATH', dirname(__FILE__) . '/wowhead_icons/');
 
 // remote path where the icons can be downloaded
-define('REMOTE_ICON_STORE_PATH', 'http://www.wowhead.com/images/icons/medium/');
+define('REMOTE_ICON_STORE_PATH', 'http://static.wowhead.com/images/icons/medium/');
 
 ?>
