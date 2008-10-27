@@ -8,7 +8,7 @@
  * email: fenuzz@gmail.com
  * description: create itemstats tooltips using wowhead
  *
- * version: 0.3.7
+ * version: 0.3.8
  *
  */
 
@@ -136,6 +136,8 @@ class ParseWowhead
 		} else {
 			$item['html'] = $properties['HTMLTOOLTIP']['data'];
 		}
+		// remove tooltips from the tooltip -_-
+		$item['html'] = preg_replace('/<span class="q2 tip" onmouseover=".+?".+?>(.+?)<\/span>/', '<span class="q2">\\1</span>', $item['html']);
 		// remove the width attributes from the tooltips, they mess the tooltip up in IE
 		$item['html'] = str_replace(' width="100%"', '', $item['html']);
 		// tooltip title/item name links to its wowhead page
