@@ -2,7 +2,7 @@
  *
  * WOWHEAD TOOLTIPS
  *
- * part of the itemstats wowhead support mod version 0.3.1
+ * part of the itemstats wowhead support mod version 0.3.2
  *
  */
 
@@ -21,7 +21,6 @@ table.wh_outer {
 	text-align: left;
 	float: none;
 
-	width: auto;
 	height: 0;
 	min-width: 350px;
     	width:expression(this.width < 350 ? "350px" : true);	
