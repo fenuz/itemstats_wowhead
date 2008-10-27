@@ -8,7 +8,7 @@
  * email: fenuzz@gmail.com
  * description: create itemstats tooltips using wowhead
  *
- * version: 0.3.8
+ * version: 0.3.9
  *
  */
 
@@ -62,9 +62,7 @@ class ParseWowhead
 		$item_data = $xml_parser->parse($xml_item_data);
 
 		if ($item_data[0]['child'][0]['name'] == 'ERROR') {
-			// error, probably an invalid item id or unknown item name
-			unset($item['link']);
-			return $item;
+			return false;
 		}
 		// apparantly weve got valid item data
 
@@ -79,6 +77,11 @@ class ParseWowhead
 	function buildTooltip($item_data) 
 	{
 		$item = array();
+
+		if (!$item_data) {
+			unset($item['link']);
+			return $item;
+		}
 		
 		// create an array of item properties
 		$properties = array();
